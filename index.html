@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <title>Vue Todo App</title>
+</head>
+<body>
+    <div id="app">
+        <!-- This example requires Tailwind CSS v2.0+ -->
+        <nav class="bg-gray-800">
+            <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+            <div class="relative flex items-center justify-between h-16">
+                <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                </div>
+                <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+                <div class="flex-shrink-0 flex items-center">
+                    <img class="block h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow"> 
+                    <h1 class="ml-1 text-xl	 text-white">Todo App</h1>
+                </div>
+                </div>
+            </div>
+            </div>
+        </nav>
+        <header class="bg-white shadow">
+            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+              <h1 class="text-3xl font-bold text-gray-900">
+                Todo List
+              </h1>
+            </div>
+          </header>
+          <main>
+            <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+                <div>
+                    <label for="Add Todo" class="block text-sm font-medium text-gray-700">Add Todo</label>
+                    <div class="mt-1 relative rounded-md shadow-sm">
+                      <!-- <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <span class="text-gray-500 sm:text-sm">
+                          $
+                        </span>
+                      </div> -->
+                      <input type="text" @keyup.enter="addTodo" v-model="todo"  name="price" id="price" class="h-10 focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="Create a Task">
+                      <div class="absolute inset-y-0 right-0 flex items-center">
+                        <label for="status" class="sr-only">status</label>
+                        <select id="status" v-model="status" name="status" class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
+                          <option value="Incomplete">Incomplete</option>
+                          <option value="In Progress">In Progress</option>
+                          <option value="Completed">Completed</option>
+                        </select>
+                        <button @click="addTodo" v-bind:disabled="todo.length === 0" class="ml-1 py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75">
+                            Add Todo
+                          </button>
+                      </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-3 gap-4 mt-5">
+                    <div v-for="(todo, index) in todos" :class="Highlight[todo.Status]" class="rounded-lg p-4 mb-4 text-sm text-green-800 " role="alert">
+                      <div v-if="editing && todo.id == editTodo.id">
+                           <input type="text" name="edit" v-model="todo.Task"><br>
+                           <select id="todostatus" v-model="todo.Status" name="status" class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
+                            <option value="Incomplete">Incomplete</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                          </select>
+                          <button @click="cancel" class="ml-1 py-2 px-4 bg-yellow-300 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75">
+                            Cancel
+                          </button>
+                      </div>
+                      <div v-else>
+                        <span class="font-normal">Status: {{todo.Status}}</span>
+                        <br> 
+                        <span class="font-medium">Task: {{todo.Task}}</span>
+                        <br> 
+                        <button @click="edit(index)" class="ml-1 mt-1 py-2 px-4 bg-yellow-300 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75">
+                          Edit Todo
+                        </button>
+                        <button @click="deleteTodo(index)" class="ml-1 py-2 px-4 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75">
+                          Delete Todo
+                        </button>
+                      </div>
+                    </div>
+
+                </div>
+
+            </div>
+          </main>
+  
+    </div>
+
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="./app.js"></script>
+</body>
+</html>
